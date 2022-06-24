@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="./static/style.css">
+    <link rel="stylesheet" href="./static/base.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <title>Smart House</title>
+</head>
+
+<body>
+  
+    <div class="container">
+        <div  class ="block" style="display:table; align-items:center;">
+            <div class='box' id='box1' style="cursor: pointer;display: inline-block"  name="checkyel">
+                <div id='circle'>
+                <div id='shine'></div>
+                </div>
+                <div id='trapezoid'></div>
+                <div id='bottom1'></div>
+                <div id='bottom2'></div>
+                <div id='bottom3'></div>
+            
+                <div id='halfCircle'></div>
+            
+                <div class='drop' id='left'></div>
+                <div class='drop' id='right'></div>
+            
+                <div id='wire'></div>
+            
+            </div>
+    
+            
+            <div style="cursor: pointer;display: inline-block; position:absolute;top:365px" >
+                <h4>Turn On/Off Led</h4>
+                    <label class="switch" style="left:-80px">
+                        <input type="checkbox" id="ctrl_button">
+                        <span class="slider round"></span>
+                    </label>
+            </div>
+    
+            
+        </div>
+   
+        <div  class ="block" style="display:table; align-items:center; padding-left:170px;">
+            <div class='box2' id='box2' style="cursor: pointer;display: inline-block"  name="checkgate">
+                <img id ="img_gate" src="./static/img/close.png" style="width:300px;">
+            
+            </div>
+    
+            
+            <div style="cursor: pointer;display: inline-block; position: absolute; padding-left:100px" >
+                <h4>Open / Close Gateway</h4>
+                    <label class="switch" style="left:-80px">
+                        <input type="checkbox" id="ctrl_button2">
+                        <span class="slider round"></span>
+                    </label>
+            </div>
+    
+            
+        </div>
+    
+    </div>
+
+    <script>
+        status_led1 = false
+        status_gate = false;
+
+        function turnLedOn(id){
+            circle = '#' + id + ' #circle'
+            trapezoid = '#' + id + ' #trapezoid'
+            if (!status_led1)
+            {
+                $(circle).css('background-color','green');
+                $(trapezoid).css('background-color', 'green');
+                status_led1 = true;
+            }
+            else
+            {
+                $(circle).css('background-color','white');
+                $(trapezoid).css('background-color', 'white');
+                status_led1 = false;
+            }
+        }
+
+        function manageGate(img_gate)
+        {
+            if (!status_gate)
+            {
+                img_gate.src = "./static/img/open.png";
+                status_gate = true;
+            }
+            else{
+                img_gate.src = "./static/img/close.png";
+                status_gate = false;
+            }
+              
+        }
+        
+        
+        let ctrl_button = document.querySelector('#ctrl_button');
+        let ctrl_button2 = document.querySelector('#ctrl_button2');
+        ctrl_button.onclick = handleClick("ctrl_button")
+        ctrl_button2.onclick = handleClick("ctrl_button2")
+
+        function handleClick(id) {
+            return () => {
+                if (id == 'ctrl_button')
+                {
+                    turnLedOn('box1')
+                }
+                if (id == 'ctrl_button2')
+                {
+                    var img_gate = document.getElementById("img_gate");
+                    manageGate(img_gate)
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
